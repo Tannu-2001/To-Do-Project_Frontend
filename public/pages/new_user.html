@@ -1,0 +1,83 @@
+<div class="w-25 bg-light p-4">
+  <h2>Register New User</h2>
+
+  <form id="formRegister" onsubmit="return false;">
+    <dl>
+      <dt>User Id</dt>
+      <dd>
+        <input type="text" id="user_id" class="form-control" autocomplete="username">
+      </dd>
+
+      <dt>User Name</dt>
+      <dd>
+        <input type="text" id="user_name" class="form-control" autocomplete="name">
+      </dd>
+
+      <dt>Password</dt>
+      <dd>
+        <input type="password" id="password" class="form-control" autocomplete="new-password">
+      </dd>
+
+      <dt>Mobile</dt>
+      <dd>
+        <input type="text" id="mobile" class="form-control" autocomplete="tel">
+      </dd>
+    </dl>
+
+    <button class="btn btn-primary w-100" id="btnRegister" type="button">Register</button>
+
+    <div class="mt-2">
+      <button id="btnExistingUser" class="btn btn-link" type="button">Existing User</button>
+    </div>
+  </form>
+</div>
+
+<!-- ✅ नीचे यह script paste करें -->
+<script>
+  // जब पेज लोड हो
+  document.addEventListener("DOMContentLoaded", function () {
+    const btnRegister = document.getElementById("btnRegister");
+    const btnExistingUser = document.getElementById("btnExistingUser");
+
+    // ✅ Register बटन क्लिक पर
+    btnRegister.addEventListener("click", async function () {
+      const user_id = document.getElementById("user_id").value.trim();
+      const user_name = document.getElementById("user_name").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const mobile = document.getElementById("mobile").value.trim();
+
+      if (!user_id || !password) {
+        alert("Please enter User Id and Password");
+        return;
+      }
+
+      const data = { user_id, user_name, password, mobile };
+
+      try {
+        const res = await fetch("/register-user", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        if (res.ok) {
+          const result = await res.json();
+          alert(result.message || "User Registered Successfully!");
+          // redirect to login page
+          window.location.href = "/pages/user_login.html";
+        } else {
+          const err = await res.json().catch(() => ({}));
+          alert("Registration failed: " + (err.error || res.statusText));
+        }
+      } catch (error) {
+        console.error("Network error:", error);
+        alert("Network error, please check console");
+      }
+    });
+
+    // ✅ Existing User बटन क्लिक पर — लॉगिन पेज पर भेजो
+    btnExistingUser.addEventListener("click", function () {
+      window.location.href = "/pages/user_login.html";
+    });
+  });
+</script>

@@ -1,0 +1,26 @@
+<div class="w-25 bg-light p-4">
+  <h2>User Login</h2>
+
+  <!-- wrap existing dl inside a form so password input is in a form -->
+  <form id="formLogin" onsubmit="return false;">
+    <dl>
+      <dt>User Id</dt>
+      <dd>
+        <!-- keep the same class so styling remains -->
+        <input type="text" id="user_id" class="form-control" autocomplete="username">
+      </dd>
+
+      <dt>Password</dt>
+      <dd>
+        <!-- password autocomplete and inside form -->
+        <input type="password" id="password" class="form-control" autocomplete="current-password">
+      </dd>
+    </dl>
+
+    <button type="button" class="btn btn-primary w-100" id="btnLogin">Login</button>
+
+    <div class="mt-2">
+      <button type="button" class="btn btn-link" id="btnNewUser">New User?</button>
+    </div>
+  </form>
+</div>
