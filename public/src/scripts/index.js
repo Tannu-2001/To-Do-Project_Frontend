@@ -1,4 +1,6 @@
-const API_BASE = "https://to-do-project-backend-6zxz.onrender.com";
+const API_BASE = (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost")
+  ? "http://127.0.0.1:4040"
+  : "https://to-do-project-backend-6zxz.onrender.com";
 
 const DEBUG = false; // true during dev, false for clean console
 
